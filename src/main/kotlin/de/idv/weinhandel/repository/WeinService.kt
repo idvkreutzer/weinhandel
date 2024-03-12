@@ -59,7 +59,7 @@ class WeinService {
 
     fun getFiltered(land: Land): List<Wein> {
         val all: List<Wein> = getAll();
-        return all.stream().filter { w -> w.equals(land)  }.toList()
+        return all.stream().filter { w -> w.herkunft == land  }.toList()
     }
 
     fun water2Wine(liter: Int): Wein {

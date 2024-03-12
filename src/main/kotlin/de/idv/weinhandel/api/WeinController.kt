@@ -32,17 +32,17 @@ class WeinController {
     @ResponseStatus(HttpStatus.CREATED)
     fun saveWein( @RequestBody wein: Wein) = weinService.saveWein(wein)
 
-    @GetMapping("/all/sorted")
+    @GetMapping("/sorted")
     fun getSortedAll(): List<Wein> {
         return weinService.getSorted()
     }
 
-    @GetMapping("/all/filtered")
+    @GetMapping("/filtered")
     fun getFiltered(@RequestParam land: Land): List<Wein> {
         return weinService.getFiltered(land)
     }
 
-    @PutMapping(consumes = [MediaType.ALL_VALUE])
+    @PutMapping("/wasserZuWein", consumes = [MediaType.ALL_VALUE])
     @ResponseStatus(HttpStatus.CREATED)
     fun macheWasserZuWein(@RequestParam liter: Int) = weinService.water2Wine(liter)
 }
