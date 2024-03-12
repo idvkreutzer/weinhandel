@@ -25,7 +25,7 @@ class WeinRepository {
         weinlager.add(Wein(9, "Veltiner", 11, Land.AT, LocalDate.of(2020, 10, 1)))
     }
 
-    fun getAll() : List<Wein?> {
+    fun getAll() : List<Wein> {
         return weinlager
     }
 
@@ -50,6 +50,16 @@ class WeinRepository {
         weinlager.add(wein)
         println("Stored: $wein")
         return wein.id!!.toString()
+    }
+
+    fun getSorted(): List<Wein> {
+        val all: List<Wein> = getAll();
+        return all.stream().sorted { w1, w2 -> w2.alkohol - w1.alkohol  }.toList()
+    }
+
+    fun getFiltered(land: Land): List<Wein> {
+        val all: List<Wein> = getAll();
+        return all.stream().filter { w -> w.equals(land)  }.toList()
     }
 
 }
