@@ -29,25 +29,4 @@ class WeinRepository {
         return weinlager
     }
 
-    fun deleteWein(weinId: Int) {
-        if (!weinlager.removeIf { weinId == it.id })
-            throw NoSuchElementException("No Wein found with id %s".format(weinId))
-    }
-
-    fun findWein(weinId: Int) : Wein? {
-        return weinlager.firstOrNull {
-            weinId == it.id
-        }
-    }
-
-    fun saveWein(wein: Wein): String {
-        if (wein.id == null)
-            wein.id = Random(2).nextInt()
-        if (weinlager.stream().anyMatch { wein.id == it.id })
-            deleteWein(wein.id!!)
-        weinlager.add(wein)
-        println("Stored: $wein")
-        return wein.id!!.toString()
-    }
-
 }
