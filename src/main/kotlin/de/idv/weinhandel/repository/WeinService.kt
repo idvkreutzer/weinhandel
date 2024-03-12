@@ -1,14 +1,14 @@
 package de.idv.weinhandel.repository
 
+import de.idv.weinhandel.java.Transformator
 import de.idv.weinhandel.model.Land
 import de.idv.weinhandel.model.Wein
 import jakarta.annotation.PostConstruct
 import org.springframework.stereotype.Service
 import java.time.LocalDate
-import kotlin.random.Random
 
 @Service
-class WeinRepository {
+class WeinService {
 
     val weinlager = mutableListOf<Wein>()
 
@@ -40,7 +40,7 @@ class WeinRepository {
         }
     }
 
-    fun saveWein(wein: Wein): String {
+    fun saveWein(wein: Wein): Wein {
         if (wein.id == null || wein.id == 0) {
             val maxOrNull = weinlager.stream().map { w -> w.id }.toList().maxOrNull()
             wein.id = maxOrNull!!  + 1
@@ -49,7 +49,7 @@ class WeinRepository {
             deleteWein(wein.id!!)
         weinlager.add(wein)
         println("Stored: $wein")
-        return wein.id!!.toString()
+        return wein
     }
 
     fun getSorted(): List<Wein> {
@@ -60,6 +60,11 @@ class WeinRepository {
     fun getFiltered(land: Land): List<Wein> {
         val all: List<Wein> = getAll();
         return all.stream().filter { w -> w.equals(land)  }.toList()
+    }
+
+    fun water2Wine(liter: Int): Wein {
+        val transformator = Transformator()
+        return saveWein(transformator.water2Wein(liter))
     }
 
 }
