@@ -41,8 +41,10 @@ class WeinRepository {
     }
 
     fun saveWein(wein: Wein): String {
-        if (wein.id == null)
-            wein.id = Random(2).nextInt()
+        if (wein.id == null || wein.id == 0) {
+            val maxOrNull = weinlager.stream().map { w -> w.id }.toList().maxOrNull()
+            wein.id = maxOrNull!!  + 1
+        }
         if (weinlager.stream().anyMatch { wein.id == it.id })
             deleteWein(wein.id!!)
         weinlager.add(wein)
