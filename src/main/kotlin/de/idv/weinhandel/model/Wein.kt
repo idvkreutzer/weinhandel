@@ -8,6 +8,7 @@ data class Wein (
     val name: String,
     var alkohol: Int,
     val herkunft: Land? = null,
-    val jahrgang: LocalDate? = LocalDate.now()
+    val jahrgang: LocalDate? = LocalDate.now(),
+    var liter: Int = 0
 )
 
