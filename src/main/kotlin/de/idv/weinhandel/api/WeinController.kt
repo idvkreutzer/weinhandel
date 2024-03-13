@@ -20,29 +20,4 @@ class WeinController {
         return weinService.getAll()
     }
 
-    @GetMapping("/{id}")
-    fun findById(@PathVariable id: Int): Wein? {
-        return weinService.findWein(id);
-    }
-
-    @DeleteMapping("/{id}")
-    fun delete(@PathVariable id: Int) = weinService.deleteWein(id);
-
-    @PostMapping(consumes = [MediaType.ALL_VALUE])
-    @ResponseStatus(HttpStatus.CREATED)
-    fun saveWein( @RequestBody wein: Wein) = weinService.saveWein(wein)
-
-    @GetMapping("/sorted")
-    fun getSortedAll(): List<Wein> {
-        return weinService.getSorted()
-    }
-
-    @GetMapping("/filtered")
-    fun getFiltered(@RequestParam land: Land): List<Wein> {
-        return weinService.getFiltered(land)
-    }
-
-    @PutMapping("/wasserZuWein", consumes = [MediaType.ALL_VALUE])
-    @ResponseStatus(HttpStatus.CREATED)
-    fun macheWasserZuWein(@RequestParam liter: Int) = weinService.water2Wine(liter)
 }
