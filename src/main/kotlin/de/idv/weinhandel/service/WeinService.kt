@@ -33,8 +33,19 @@ class WeinService {
     }
 
     fun water2Wine(liter: Int): Wein {
-        val water2Wein = Transformator().water2Wein(liter)
+        val water2Wein = javaToKotlin(Transformator().water2Wein(liter))
         saveWein(water2Wein)
         return water2Wein
+    }
+
+    fun javaToKotlin(javaObject: Transformator.Wein): Wein {
+        return Wein(
+            id = javaObject.getId(),
+            name = javaObject.getName(),
+            alkohol = javaObject.getAlkohol(),
+            herkunft = null,
+            jahrgang = javaObject.getJahrgang(),
+            liter = javaObject.getLiter()
+        )
     }
 }
