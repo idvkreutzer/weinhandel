@@ -23,4 +23,12 @@ class WeinService {
     fun saveWein(wein: Wein): Wein {
         return weinRepository.saveWein(wein)
     }
+
+    fun getSorted(): List<Wein> {
+        return getAll().stream().sorted { w1, w2 -> w2.alkohol - w1.alkohol  }.toList()
+    }
+
+    fun getFiltered(land: Land): List<Wein> {
+        return getAll().stream().filter { w -> w.herkunft == land  }.toList()
+    }
 }

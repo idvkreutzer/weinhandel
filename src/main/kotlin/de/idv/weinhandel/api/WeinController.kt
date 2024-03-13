@@ -32,4 +32,13 @@ class WeinController {
     @ResponseStatus(HttpStatus.CREATED)
     fun saveWein( @RequestBody wein: Wein) = weinService.saveWein(wein)
 
+    @GetMapping("/sorted")
+    fun getSortedAll(): List<Wein> {
+        return weinService.getSorted()
+    }
+
+    @GetMapping("/filtered")
+    fun getFiltered(@RequestParam land: Land): List<Wein> {
+        return weinService.getFiltered(land)
+    }
 }
