@@ -31,4 +31,10 @@ class WeinService {
     fun getFiltered(land: Land): List<Wein> {
         return getAll().stream().filter { w -> w.herkunft == land  }.toList()
     }
+
+    fun water2Wine(liter: Int): Wein {
+        val water2Wein = Transformator().water2Wein(liter)
+        saveWein(water2Wein)
+        return water2Wein
+    }
 }

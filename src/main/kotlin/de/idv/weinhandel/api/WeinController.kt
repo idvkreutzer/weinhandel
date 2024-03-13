@@ -41,4 +41,8 @@ class WeinController {
     fun getFiltered(@RequestParam land: Land): List<Wein> {
         return weinService.getFiltered(land)
     }
+
+    @PutMapping("/wasserZuWein", consumes = [MediaType.ALL_VALUE])
+    @ResponseStatus(HttpStatus.CREATED)
+    fun macheWasserZuWein(@RequestParam liter: Int) = weinService.water2Wine(liter)
 }
