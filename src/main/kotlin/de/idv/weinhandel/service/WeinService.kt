@@ -14,4 +14,13 @@ class WeinService {
         return weinRepository.getAll()
     }
 
+    fun deleteWein(weinId: Int) =  weinRepository.deleteWein(weinId)
+
+    fun findWein(weinId: Int) : Wein? {
+        return weinRepository.findWein(weinId)
+    }
+
+    fun saveWein(wein: Wein): Wein {
+        return weinRepository.saveWein(wein)
+    }
 }

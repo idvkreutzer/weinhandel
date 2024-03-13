@@ -20,4 +20,16 @@ class WeinController {
         return weinService.getAll()
     }
 
+    @GetMapping("/{id}")
+    fun findById(@PathVariable id: Int): Wein? {
+        return weinService.findWein(id);
+    }
+
+    @DeleteMapping("/{id}")
+    fun delete(@PathVariable id: Int) = weinService.deleteWein(id);
+
+    @PostMapping(consumes = [MediaType.ALL_VALUE])
+    @ResponseStatus(HttpStatus.CREATED)
+    fun saveWein( @RequestBody wein: Wein) = weinService.saveWein(wein)
+
 }

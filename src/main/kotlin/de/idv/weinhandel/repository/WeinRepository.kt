@@ -28,4 +28,27 @@ class WeinRepository {
         return weinlager
     }
 
+    fun deleteWein(weinId: Int) {
+        if (!weinlager.removeIf { weinId == it.id })
+            throw NoSuchElementException("No Wein found with id %s".format(weinId))
+    }
+
+    fun findWein(weinId: Int) : Wein? {
+        return weinlager.firstOrNull {
+            weinId == it.id
+        }
+    }
+
+    fun saveWein(wein: Wein): Wein {
+        if (wein.id == null || wein.id == 0) {
+            val maxOrNull = weinlager.stream().map { w -> w.id }.toList().maxOrNull()
+            wein.id = maxOrNull!!  + 1
+        }
+        if (weinlager.stream().anyMatch { wein.id == it.id })
+            deleteWein(wein.id!!)
+        weinlager.add(wein)
+        println("Stored: $wein")
+        return wein
+    }
+
 }
