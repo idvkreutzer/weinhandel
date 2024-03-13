@@ -4,13 +4,13 @@ import de.idv.weinhandel.java.Transformator
 import de.idv.weinhandel.model.Land
 import de.idv.weinhandel.model.Wein
 import jakarta.annotation.PostConstruct
-import org.springframework.stereotype.Service
+import org.springframework.stereotype.Repository
 import java.time.LocalDate
 
-@Service
-class WeinService {
+@Repository
+class WeinRepository {
 
-    val weinlager = mutableListOf<Wein>()
+    private val weinlager = mutableListOf<Wein>()
 
     @PostConstruct
     fun setup(){
@@ -50,21 +50,6 @@ class WeinService {
         weinlager.add(wein)
         println("Stored: $wein")
         return wein
-    }
-
-    fun getSorted(): List<Wein> {
-        val all: List<Wein> = getAll();
-        return all.stream().sorted { w1, w2 -> w2.alkohol - w1.alkohol  }.toList()
-    }
-
-    fun getFiltered(land: Land): List<Wein> {
-        val all: List<Wein> = getAll();
-        return all.stream().filter { w -> w.herkunft == land  }.toList()
-    }
-
-    fun water2Wine(liter: Int): Wein {
-        val transformator = Transformator()
-        return saveWein(transformator.water2Wein(liter))
     }
 
 }
