@@ -10,7 +10,7 @@ public class Transformator {
         return new Wein(new Random().nextInt(), "Holy Juice", 99, LocalDate.now(), liter);
     }
 
-    class Wein {
+    public class Wein {
         private int id;
         private String name;
         private int alkohol;
