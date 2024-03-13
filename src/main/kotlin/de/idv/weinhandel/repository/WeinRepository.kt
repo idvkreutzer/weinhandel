@@ -1,6 +1,5 @@
 package de.idv.weinhandel.repository
 
-import de.idv.weinhandel.java.Transformator
 import de.idv.weinhandel.model.Land
 import de.idv.weinhandel.model.Wein
 import jakarta.annotation.PostConstruct

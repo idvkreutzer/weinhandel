@@ -14,9 +14,7 @@ class WeinService {
         return weinRepository.getAll()
     }
 
-    fun deleteWein(weinId: Int) {
-        weinRepository.deleteWein(weinId)
-    }
+    fun deleteWein(weinId: Int) =  weinRepository.deleteWein(weinId)
 
     fun findWein(weinId: Int) : Wein? {
         return weinRepository.findWein(weinId)
@@ -27,18 +25,15 @@ class WeinService {
     }
 
     fun getSorted(): List<Wein> {
-        val all: List<Wein> = getAll();
-        return all.stream().sorted { w1, w2 -> w2.alkohol - w1.alkohol  }.toList()
+        return getAll().stream().sorted { w1, w2 -> w2.alkohol - w1.alkohol  }.toList()
     }
 
     fun getFiltered(land: Land): List<Wein> {
-        val all: List<Wein> = getAll();
-        return all.stream().filter { w -> w.herkunft == land  }.toList()
+        return getAll().stream().filter { w -> w.herkunft == land  }.toList()
     }
 
     fun water2Wine(liter: Int): Wein {
-        val transformator = Transformator()
-        val water2Wein = transformator.water2Wein(liter)
+        val water2Wein = Transformator().water2Wein(liter)
         saveWein(water2Wein)
         return water2Wein
     }
