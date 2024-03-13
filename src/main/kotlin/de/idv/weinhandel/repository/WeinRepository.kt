@@ -1,4 +1,4 @@
-package de.idv.weinhandel
+package de.idv.weinhandel.repository
 
 import de.idv.weinhandel.model.Land
 import de.idv.weinhandel.model.Wein
