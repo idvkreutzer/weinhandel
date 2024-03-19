@@ -25,7 +25,11 @@ class WeinService {
     }
 
     fun getSorted(): List<Wein> {
-        return getAll().stream().sorted { w1, w2 -> w2.alkohol - w1.alkohol  }.toList()
+        // kotlin way
+        return getAll().sortedBy { it.alkohol }
+//      java way  return getAll().stream().sorted { w1, w2 -> w2.alkohol - w1.alkohol  }.toList()
+
+
     }
 
     fun getFiltered(land: Land): List<Wein> {
