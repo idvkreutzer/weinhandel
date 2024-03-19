@@ -3,23 +3,24 @@ package de.idv.weinhandel.service
 import de.idv.weinhandel.model.Land
 import de.idv.weinhandel.model.Wein
 import de.idv.weinhandel.repository.WeinRepository
+import io.mockk.MockKAnnotations
+import io.mockk.every
+import io.mockk.impl.annotations.InjectMockKs
+import io.mockk.impl.annotations.RelaxedMockK
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
-import org.mockito.InjectMocks
-import org.mockito.Mock
-import org.mockito.Mockito
-import org.mockito.junit.jupiter.MockitoExtension
 import java.time.LocalDate
 
-@ExtendWith(MockitoExtension::class)
-class WeinServiceTest {
+class WeinServiceMockkTest {
 
-    @Mock
-    lateinit var weinRepository: WeinRepository
 
-    @InjectMocks
-    lateinit var weinService: WeinService
+    @InjectMockKs
+    private lateinit var weinService: WeinService
+    @RelaxedMockK
+    private lateinit var weinRepository: WeinRepository
+
+    @BeforeEach
+    fun setUp() = MockKAnnotations.init(this)
 
     private val weinlager = listOf<Wein>(
         Wein(1, "Bordeaux", 13, Land.FR, LocalDate.of(2022, 11, 1)),
@@ -29,19 +30,15 @@ class WeinServiceTest {
         Wein(5, "Veltiner", 10, Land.AT, LocalDate.of(2020, 10, 1))
     )
 
-    @BeforeEach
-    fun setup() {
-        Mockito.lenient().`when`(weinRepository.getAll()).thenReturn(weinlager)
-    }
-
     @Test
-    fun getSorted() {
+    fun sorted() {
+        every { weinRepository.getAll() } returns weinlager
         assert(weinService.getSorted().first().name == "Chardonnay")
     }
 
-
     @Test
-    fun getFiltered() {
+    fun filtered() {
+        every { weinRepository.getAll() } returns weinlager
         assert(weinService.getFiltered(Land.AT).first().name == "Veltiner")
     }
 
