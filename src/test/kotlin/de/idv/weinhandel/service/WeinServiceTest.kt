@@ -36,6 +36,7 @@ class WeinServiceTest {
 
     @Test
     fun getSorted() {
+        Mockito.`when`(weinRepository.getAll()).thenReturn(weinlager)
         assert(weinService.getSorted().first().name == "Chardonnay")
     }
 
@@ -47,7 +48,7 @@ class WeinServiceTest {
 
     @Test
     fun water2Wine() {
-        val water2Wine = weinService.water2Wine(5)
+        val water2Wine = weinService.water2WineOldWay(5)
         assert(water2Wine.name == "Holy Juice")
     }
 }

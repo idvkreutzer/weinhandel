@@ -28,7 +28,7 @@ class WeinService {
 
     fun getSorted(): List<Wein> {
         // kotlin way. "it" ein implizites Namen für den einzelnen Parameter in Lambda-Ausdrücken
-        return getAll().sortedBy { it.alkohol }
+        return getAll().sortedByDescending { it.alkohol }
 //      java way  return getAll().stream().sorted { w1, w2 -> w2.alkohol - w1.alkohol  }.toList()
     }
 
