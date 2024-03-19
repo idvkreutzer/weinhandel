@@ -27,7 +27,7 @@ class WeinService {
     }
 
     fun getSorted(): List<Wein> {
-        // kotlin way
+        // kotlin way. "it" ein implizites Namen für den einzelnen Parameter in Lambda-Ausdrücken
         return getAll().sortedBy { it.alkohol }
 //      java way  return getAll().stream().sorted { w1, w2 -> w2.alkohol - w1.alkohol  }.toList()
 
@@ -44,21 +44,21 @@ class WeinService {
         return saveWein(modelmapper.map(water2Wein, Wein::class.java))
     }
 
-//    fun water2Wine(liter: Int): Wein {
+    fun water2WineOldWay(liter: Int): Wein {
 //        Loesung mit eigenem kleinen mapping.
-//        val water2Wein = javaToKotlin(Transformator().water2Wein(liter))
-//        saveWein(water2Wein)
-//        return water2Wein
-//    }
+        val water2Wein = javaToKotlin(Transformator().water2Wein(liter))
+        saveWein(water2Wein)
+        return water2Wein
+    }
 
-//    fun javaToKotlin(javaObject: Transformator.Wein): Wein {
-//        return Wein(
-//            id = javaObject.id,
-//            name = javaObject.name,
-//            alkohol = javaObject.alkohol,
-//            herkunft = null,
-//            jahrgang = javaObject.jahrgang,
-//            liter = javaObject.liter
-//        )
-//    }
+    fun javaToKotlin(javaObject: Transformator.Wein): Wein {
+        return Wein(
+            id = javaObject.id,
+            name = javaObject.name,
+            alkohol = javaObject.alkohol,
+            herkunft = null,
+            jahrgang = javaObject.jahrgang,
+            liter = javaObject.liter
+        )
+    }
 }
