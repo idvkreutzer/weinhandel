@@ -5,6 +5,8 @@ import de.idv.weinhandel.model.Wein
 import de.idv.weinhandel.repository.WeinRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import org.modelmapper.ModelMapper
+
 @Service
 class WeinService {
 
@@ -37,19 +39,26 @@ class WeinService {
     }
 
     fun water2Wine(liter: Int): Wein {
-        val water2Wein = javaToKotlin(Transformator().water2Wein(liter))
-        saveWein(water2Wein)
-        return water2Wein
+        val modelmapper = ModelMapper()
+        val water2Wein = Transformator().water2Wein(liter)
+        return saveWein(modelmapper.map(water2Wein, Wein::class.java))
     }
 
-    fun javaToKotlin(javaObject: Transformator.Wein): Wein {
-        return Wein(
-            id = javaObject.getId(),
-            name = javaObject.getName(),
-            alkohol = javaObject.getAlkohol(),
-            herkunft = null,
-            jahrgang = javaObject.getJahrgang(),
-            liter = javaObject.getLiter()
-        )
-    }
+//    fun water2Wine(liter: Int): Wein {
+//        Loesung mit eigenem kleinen mapping.
+//        val water2Wein = javaToKotlin(Transformator().water2Wein(liter))
+//        saveWein(water2Wein)
+//        return water2Wein
+//    }
+
+//    fun javaToKotlin(javaObject: Transformator.Wein): Wein {
+//        return Wein(
+//            id = javaObject.id,
+//            name = javaObject.name,
+//            alkohol = javaObject.alkohol,
+//            herkunft = null,
+//            jahrgang = javaObject.jahrgang,
+//            liter = javaObject.liter
+//        )
+//    }
 }
